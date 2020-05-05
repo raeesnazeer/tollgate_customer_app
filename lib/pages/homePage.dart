@@ -24,31 +24,32 @@ class _HomePageState extends State<HomePage> {
   Widget _appBar() {
 
     return Row(
-      children: <Widget>[
-        TitleText(text: "Hello, "),
-        Text(Services.carOwnerName,
-            style: GoogleFonts.muli(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: LightColor.navyBlue2),),
-        Expanded(
-          child: SizedBox(),
-        ),
-        GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Text(
-            'Logout',
-            style: GoogleFonts.muli(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: LightColor.navyBlue2),
+        children: <Widget>[
+          TitleText(text: "Hello, "),
+          Text(Services.carOwnerName,
+              style: GoogleFonts.muli(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: LightColor.navyBlue2),),
+          Expanded(
+            child: SizedBox(),
           ),
-        )
-      ],
-    );
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              'Logout',
+              style: GoogleFonts.muli(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: LightColor.navyBlue2),
+            ),
+          )
+        ],
+      );
   }
+
 
   Widget _operationsWidget() {
     return Row(

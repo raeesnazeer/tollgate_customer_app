@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'pages/login_signup.dart';
 import 'pages/homePage.dart';
 void main() => runApp(MyApp());
@@ -13,8 +14,12 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginSignUpPage(),
+      home: LoaderOverlay(
+      useDefaultLoading: true,
+      child:  LoginSignUpPage(),
+    ),
     );
+
   }
 }
 

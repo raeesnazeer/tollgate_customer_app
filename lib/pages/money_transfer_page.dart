@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:tollm/API/Services.dart';
 import '../Color/light_color.dart';
 import '../widgets/title_text.dart';
@@ -63,9 +64,12 @@ class _MoneyTransferPageState extends State<MoneyTransferPage> {
   Widget _transferButton() {
     return GestureDetector(
       onTap: () async{
+        context.showLoaderOverlay();
         Services services = Services();
         await services.recharge(amount);
+
         Navigator.pop(context);
+        context.hideLoaderOverlay();
       },
       child: Container(
           margin: EdgeInsets.only(bottom: 20),
@@ -138,91 +142,93 @@ class _MoneyTransferPageState extends State<MoneyTransferPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
-        body: Container(
-          height: MediaQuery.of(context).size.height,
-          child: Stack(
-            fit: StackFit.expand,
-            children: <Widget>[
-              Align(
-                alignment: Alignment.topCenter,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: SizedBox(),
-                    ),
-
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                        width: 130,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: LightColor.navyBlue2,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15))),
-                        child: TitleText(
-                          text: "₹ $amount",
-                          color: Colors.white,
-                        )),
-                    Expanded(
-                      flex: 2,
-                      child: SizedBox(),
-                    )
-                  ],
-                ),
-              ),
-              Positioned(
-                left: -140,
-                top: -270,
-                child: CircleAvatar(
-                  radius: 190,
-                  backgroundColor: LightColor.lightBlue2,
-                ),
-              ),
-              Positioned(
-                left: -130,
-                top: -300,
-                child: CircleAvatar(
-                  radius: 190,
-                  backgroundColor: LightColor.lightBlue1,
-                ),
-              ),
-              Positioned(
-                top: MediaQuery.of(context).size.height * .4,
-                right: -150,
-                child: CircleAvatar(
-                  radius: 130,
-                  backgroundColor: LightColor.yellow2,
-                ),
-              ),
-              Positioned(
-                top: MediaQuery.of(context).size.height * .4,
-                right: -180,
-                child: CircleAvatar(
-                  radius: 130,
-                  backgroundColor: LightColor.yellow,
-                ),
-              ),
-              Positioned(
-                  left: 0,
-                  top: 40,
-                  child: Row(
+        body: LoaderOverlay(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              fit: StackFit.expand,
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      BackButton(color: Colors.white,),
-                      SizedBox(width: 20),
-                      TitleText(
-                        text: "Recharge",
-                        color: Colors.white,
+                      Expanded(
+                        flex: 1,
+                        child: SizedBox(),
+                      ),
+
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                          width: 130,
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: LightColor.navyBlue2,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          child: TitleText(
+                            text: "₹ $amount",
+                            color: Colors.white,
+                          )),
+                      Expanded(
+                        flex: 2,
+                        child: SizedBox(),
                       )
                     ],
-                  )),
-              _buttonWidget(),
-            ],
+                  ),
+                ),
+                Positioned(
+                  left: -140,
+                  top: -270,
+                  child: CircleAvatar(
+                    radius: 190,
+                    backgroundColor: LightColor.lightBlue2,
+                  ),
+                ),
+                Positioned(
+                  left: -130,
+                  top: -300,
+                  child: CircleAvatar(
+                    radius: 190,
+                    backgroundColor: LightColor.lightBlue1,
+                  ),
+                ),
+                Positioned(
+                  top: MediaQuery.of(context).size.height * .4,
+                  right: -150,
+                  child: CircleAvatar(
+                    radius: 130,
+                    backgroundColor: LightColor.yellow2,
+                  ),
+                ),
+                Positioned(
+                  top: MediaQuery.of(context).size.height * .4,
+                  right: -180,
+                  child: CircleAvatar(
+                    radius: 130,
+                    backgroundColor: LightColor.yellow,
+                  ),
+                ),
+                Positioned(
+                    left: 0,
+                    top: 40,
+                    child: Row(
+                      children: <Widget>[
+                        BackButton(color: Colors.white,),
+                        SizedBox(width: 20),
+                        TitleText(
+                          text: "Recharge",
+                          color: Colors.white,
+                        )
+                      ],
+                    )),
+                _buttonWidget(),
+              ],
+            ),
           ),
         ));
   }

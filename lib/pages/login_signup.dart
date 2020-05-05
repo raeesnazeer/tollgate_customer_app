@@ -1,11 +1,12 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:tollm/API/Services.dart';
 import 'package:tollm/pages/homePage.dart';
 import '../Color/light_color.dart';
-
+import 'package:loader_overlay/loader_overlay.dart';
 class LoginSignUpPage extends StatefulWidget {
   @override
   _LoginSignUpPageState createState() => _LoginSignUpPageState();
@@ -21,7 +22,6 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
     super.initState();
     Services services = Services();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,14 +79,15 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                      child: Text('LOGIN',
                          style: TextStyle(fontSize: 20.0, color: Colors.white)),
                      onPressed: () async{
+                       context.showLoaderOverlay();
                        Services service = Services();
-
                        if(await service.login(carNumber,password) == "success"){
                          await Services.getProfile(carNumber);
                          Navigator.push(
                            context,
                            MaterialPageRoute(builder: (context) => HomePage(),),
                          );
+                         context.hideLoaderOverlay();
                        }
                        else
                          {
@@ -98,7 +99,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                ),
              ],),
            )
-           
+
           ],
         ),
       ),
